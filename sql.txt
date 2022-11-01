@@ -1,0 +1,41 @@
+Creating Actors DataBase adding some data for the assignment purpose.
+
+/*select * from ActorsMovies;
+insert into  ActorsMovies
+(FirstName, LastName, MovieName, DirectorName)
+values
+('Mark', 'Anthony', 'Pirates', 'Robertson'),
+('Jake', 'Treads', 'Mystery Unsolved', 'Norris'),
+('Melissa', 'Khalid', 'Mission Failure', 'Barts'),
+('Jen', 'Fisher', 'Price of Payment', 'Sherlock'),
+('Courtney', 'Loveless', 'Admit One', 'Omar');*/
+select * from ActorsMovies;
+
+
+Create Director DataBase and adding some matching data for the assignment purposeActorName
+
+insert into DirectorsMovies
+(LastName, FirstName, MovieName, ActorName)
+values
+('Robertson', 'James', 'Pirates', 'Anthony'),
+('Norris', 'Amy', 'Mystery Unsolved', 'Treads'),
+('Barts', 'Ben', 'Mission Failure', 'Khalid'),
+('Sherlock', 'Stephan', 'Price of Payment', 'Fisher'),
+('Omar', 'Jeremy', 'Admit One', 'Loveless');
+
+select * from DirectorsMovies;
+
+Using Left Join reults in 1 set of data to include all last names of the actors.
+
+select ActorName
+from DirectorsMovies
+left join ActorsMovies
+on DirectorsMovies.ActorName = ActorsMovies.LastName;
+
+Ading to it slightly and changing the statment to ALL gives a better range of data within the join.
+
+select *
+from DirectorsMovies
+left join ActorsMovies
+on DirectorsMovies.ActorName = ActorsMovies.LastName
+where DirectorName = 'Robertson';

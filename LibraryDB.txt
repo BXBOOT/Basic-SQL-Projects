@@ -1,0 +1,171 @@
+Library Assignment
+
+create database LibraryTask
+
+create table Library_Branch (
+BranchID int Primary Key not null,
+BranchName varchar (255),
+Address varchar (255)
+);
+
+create table Book_Copies (
+BookID int not null,
+BranchID int not null foreign key references Library_Branch (BranchID),
+Number_Of_Copies int not null,
+);
+
+create table Books (
+BookID int not null primary key,
+Title varchar (255) not null,
+PublisherName varchar (255) not null
+);
+
+create table Book_Authors (
+BookID int not null foreign key references books (BookID)
+AuthorName varchar (255) not null
+);
+
+create table Borrower (
+CardNo int not null primary key,
+Name varchar (255) not null,
+Address varchar (255) not null,
+phone int not null
+);
+
+create table Book_Loans (
+BookID int not null foreign key references Books (BookID),
+BranchID int not null foreign key references Library_Branch (BranchID),
+CardNo int not null foreign key references Borrower (CardNo),
+DateOut date,
+DateDue date
+);
+
+create table Publisher (
+PublisherName varchar (255) not null Primary Key,
+Address varchar (255) not null,
+phone varchar (255) null
+);
+
+alter table Books
+add constraint fk_PublisherName
+foreign key (PublisherName) references Publisher(PublisherName);
+
+insert into Library_Branch (BranchID, BranchName, Address)
+Values ('1', 'Central', '123 Center Street'),
+	('2', 'West', '987 West Street'),
+	('3', 'North', '456 North Street'),
+	('4', 'East', '963 East Street'),
+	('5', 'Lower', '852 Lower Drive'),
+	('6', 'Upper', '741 Upper Lane'),
+	('7', 'Sharpstown', '456 Blunt Avenue');
+
+insert into Borrower (CardNo, Name, Address, phone)
+values ('001', 'Marty McFly', '123 Nowhere cres', '999 555 1111'),
+		('002', 'Megan Rogers', '456 Anywhere Ave', '999 555 2222'),
+		('003', 'Alfred Banner', '369 This Road', '999 555 3333'),
+		('004', 'Harper Watts', '369 About This Street', '999 555 4444'),
+		('005', 'Doris Day', '258 Almost Avenue', '999 555 5555'),
+		('006', 'Lee Morton', '147 Baker Drive', '999 555 6666'),
+		('007', 'Pierce Brosnan', '10 Downing Street', '999 555 7777'),
+		('008', 'Amelia Earhardt', '1235 America Cres', '999 555 8888');
+
+Alter Table Borrower Alter Column phone varchar (255)
+
+insert into Publisher (PublisherName, Address, phone)	
+values ('M. Majors', '321 Publics Road', '555 999 1111'),
+		('J. Macy', '654 Private Blv', '555 999 2222'),
+		('A. Lancaster', '789 Silly Street', '555 999 3333'),
+		('S.Poon', '654 Wett Avenue', '555 999 4444'),
+		('J.Lifter', '751 Low Street', '555 999 5555'),
+		('B.Upper', '562 Clown District', '555 999 3215'),
+		('F.Furter', '21 Jump Street', '555 999 2121'),
+		('K.Ilo', '1000 Tonne Road', '555 999 1000'),
+		('S.Pider', '8 Legg Laneway', '555 999 8888'),
+		('P.Iper', '789 Baggpipe Cres', '555 999 2323');
+
+insert into Books (BookID, Title, PublisherName)
+values ('001', 'The Lost Tribe', 'Penguin Publishing'),
+	('002', 'Room With a View', 'Foster'),
+	('003', 'MiddleMarch', 'George Print'),
+	('004', 'Blue Castle', 'Penguine Publishing'),
+	('005', 'Count Ferdinand', 'Herman'),
+	('006', 'Cranford', 'Montgomery Post'),
+	('007', 'Sleepy Hollow', 'Irving Hoouse'),
+	('008', 'Dracula', 'Stoker'),
+	('009', 'Pride and Predjudice', 'Austen'),
+	('010', 'Being Earnest', 'Wilde Oscar'),
+	('011', 'Great Gatsby', 'Fitzgerald'),
+	('012', 'Tale of Two Cities', 'Dickens'),
+	('013', 'Dolls House', 'Ibsen'),
+	('014', 'Leviathan', 'Hobbes'),
+	('015', 'HuckFinn', 'Twain Mark'),
+	('016', 'Heart f Darkness', 'Conrad');
+
+insert into Book_Authors (BookID, AuthorName)
+values ('001', 'Mark Twain'),
+		('002', 'Tyler Perry'),
+		('003', 'J.K.Rowling'),
+		('004', 'Enid Blyton'),
+		('005', 'MarkTwain'),
+		('006', 'Foster Grant'),
+		('007', 'Amy Muncher'),
+		('008', 'Enid Blyton'),
+		('009', 'Ernesto Firenut'),
+		('010', 'Tyler Perry');
+
+insert into Book_Copies (BookID, BranchID, Number_Of_Copies)
+values ('001', '002', '2'),
+		('001', '007', '4'),
+		('012', '005', '3'),
+		('010', '006', '3'),
+		('001', '006', '2'),
+		('016', '001', '8'),
+		('016', '007', '3'),
+		('015', '003', '3'),
+		('009', '005', '11'),
+		('011', '007', '2'),
+		('008', '003', '2'),
+		('008', '004', '9');
+
+insert into Book_Loans (BookID, BranchID, CardNo, DateOut, DateDue)
+values ('001', '002',  '1', '2022-09-01', '2022-09-08'),
+		('001', '007', '2','2022-09-11', '2022-09-18'),
+		('012', '005', '2', '2022-09-11', '2022-09-18'),
+		('010', '006', '3', '2022-09-01', '2022-09-08'),
+		('001', '006', '2', '2022-09-11', '2022-09-18'),
+		('016', '001', '4', '2022-09-21', '2022-09-31'),
+		('016', '007', '5', '2022-08-11', '2022-08-19'),
+		('015', '003', '6', '2022-09-01', '2022-09-08'),
+		('009', '005', '1', '2022-09-01', '2022-09-08' ),
+		('011', '007', '5', '2022-08-11', '2022-08-19'),
+		('008', '003', '8', '2022-09-21', '2022-09-31'),
+		('008', '004', '8', '2022-09-21', '2022-09-31');
+
+SELECT * FROM ((Book_Loans FULL OUTER JOIN Borrower ON Book_Loans.CardNo = Borrower.CardNo) 
+FULL OUTER JOIN Books ON Book_Loans.BookID = Books.BookID);
+
+
+
+create procedure BookCount
+as
+select * from Book_copies 
+where BookID = '1' and BranchID = '7'
+
+exec BookCount
+
+
+create procedure FinalAttempt
+as
+select Number_of_copies, BranchID
+from Book_Copies
+full outer join Books
+on Book_Copies.BookID = Books.BookID
+where Title = 'The Lost Tribe'
+and Number_Of_Copies > '1'
+
+exec FinalAttempt
+
+
+
+
+
